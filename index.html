@@ -228,7 +228,7 @@
       font-size: 0.6rem;
       color: var(--muted);
       letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .ig-note a {
@@ -237,80 +237,60 @@
       border-bottom: 1px solid var(--muted);
     }
 
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 3px;
-      position: relative;
+    /* Behold widget wrapper — forces dark background beneath tiles */
+    .behold-wrap {
+      width: 100%;
+      background: var(--black);
+      /* Override Behold's default white card background */
+      --behold-background-color: #000000;
+      --behold-border-radius: 0px;
+      --behold-gap: 3px;
     }
 
-    /* scanlines overlay on grid */
-    .photo-grid::after {
+    /* Scanlines overlay on top of the whole gallery */
+    .behold-wrap {
+      position: relative;
+    }
+    .behold-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
       pointer-events: none;
+      z-index: 10;
       background: repeating-linear-gradient(
         0deg,
         transparent,
         transparent 3px,
-        rgba(0,0,0,0.08) 3px,
-        rgba(0,0,0,0.08) 4px
+        rgba(0,0,0,0.07) 3px,
+        rgba(0,0,0,0.07) 4px
       );
-      z-index: 2;
     }
 
-    .photo-cell {
-      aspect-ratio: 1;
-      overflow: hidden;
-      position: relative;
-      background: #080808;
+    /* Setup state shown until a real feed-id is added */
+    .behold-setup {
+      padding: 4rem 2rem;
+      border: 1px solid #111;
+      text-align: center;
+      background: #050505;
     }
 
-    .photo-cell img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(25%) contrast(1.15) brightness(0.9);
-      transition: filter 0.4s, transform 0.6s;
+    .behold-setup p {
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 2;
+      margin: 0;
     }
 
-    .photo-cell:hover img {
-      filter: grayscale(0%) contrast(1.2) brightness(1);
-      transform: scale(1.04);
+    .behold-setup a {
+      color: var(--dim);
+      text-decoration: none;
+      border-bottom: 1px solid #333;
     }
 
-    /* placeholder for missing photos */
-    .photo-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      background: linear-gradient(135deg, #0a0a0a 0%, #080808 100%);
-      border: 1px solid #0f0f0f;
-    }
-
-    .photo-placeholder .ph-icon {
-      font-size: 1.4rem;
-      color: #1a1a1a;
-    }
-
-    .photo-placeholder .ph-text {
-      font-size: 0.5rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: #222;
-    }
-
-    .photo-replace-note {
-      margin-top: 1rem;
-      font-size: 0.55rem;
-      color: #2a2a2a;
-      letter-spacing: 0.15em;
+    .behold-setup code {
+      color: #444;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
     }
 
     /* ══════════════════════════════════════════
@@ -672,69 +652,32 @@
       <span class="label">— Visual Evidence</span>
       <h2>The Archive.</h2>
       <p class="ig-note">
-        Sourced from <a href="https://www.instagram.com/8ry8ry/" target="_blank" rel="noopener">@8ry8ry</a> on Instagram.
+        <a href="https://www.instagram.com/8ry8ry/" target="_blank" rel="noopener">@8ry8ry</a> on Instagram.
         All photographs taken with intention. Some retaken because the first one "missed."
-        &nbsp;·&nbsp; To add real photos: replace the placeholder divs below with
-        <code style="color:#333">&lt;img src="..."&gt;</code> inside each .photo-cell.
       </p>
-      <div class="photo-grid" id="photo-grid">
-        <!-- Replace each .photo-placeholder div with an <img> tag to show real photos -->
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
-        <div class="photo-cell">
-          <div class="photo-placeholder">
-            <span class="ph-icon">◼</span>
-            <span class="ph-text">@8ry8ry</span>
-          </div>
-        </div>
+    </div>
+
+    <!-- Behold.so Instagram feed widget — full bleed, no container padding -->
+    <div class="behold-wrap">
+
+      <!-- ─────────────────────────────────────────────────────────────────
+           TO ACTIVATE: Bryan goes to https://behold.so, creates a free
+           account, connects his @8ry8ry Instagram, and copies his Feed ID.
+           Then replace YOUR_FEED_ID below with the real ID (looks like: AbCd1234).
+           In the Behold dashboard set: background = #000, gap = 3px, columns = 3.
+           ───────────────────────────────────────────────────────────────── -->
+      <behold-widget feed-id="YOUR_FEED_ID"></behold-widget>
+
+      <!-- Shown only until a real feed-id is set -->
+      <div class="behold-setup" id="behold-setup">
+        <p>
+          Instagram gallery coming soon.<br>
+          <a href="https://behold.so" target="_blank" rel="noopener">behold.so</a>
+          &nbsp;→ connect <strong style="color:#555">@8ry8ry</strong>
+          → copy Feed ID → replace <code>YOUR_FEED_ID</code> in the HTML.
+        </p>
       </div>
-      <p class="photo-replace-note">↳ instagram said no. drag + drop your own photos into each cell or paste img src urls.</p>
+
     </div>
   </section>
 
@@ -1055,6 +998,22 @@
       b.classList.toggle('paused', !playing)
     );
   }
+</script>
+
+<!-- Behold.so Instagram feed -->
+<script type="module" src="https://w.behold.so/widget.js"></script>
+<script>
+  // Hide the setup placeholder once Behold renders real posts
+  document.addEventListener('DOMContentLoaded', function () {
+    const widget = document.querySelector('behold-widget');
+    const setup  = document.getElementById('behold-setup');
+    if (!widget || !setup) return;
+
+    // If a real feed-id is set, hide the placeholder after a short grace period
+    if (widget.getAttribute('feed-id') !== 'YOUR_FEED_ID') {
+      setup.style.display = 'none';
+    }
+  });
 </script>
 
 </body>
