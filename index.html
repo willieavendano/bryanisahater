@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>8RY8RY — Miami's Most Dangerous Opinion</title>
+  <title>8RY8RY — Coming Soon</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Something is being prepared in Miami. It is not ready. He will let you know.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
@@ -18,13 +20,20 @@
       --border: #111111;
     }
 
-    html { scroll-behavior: smooth; }
+    html, body { height: 100%; }
 
     body {
       background: var(--black);
       color: var(--white);
       font-family: 'Space Mono', monospace;
       overflow-x: hidden;
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+      position: relative;
     }
 
     /* ── GRAIN ── */
@@ -39,69 +48,117 @@
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
     }
 
-    /* ══════════════════════════════════════════
-       ENTRY SCREEN
-    ══════════════════════════════════════════ */
-    #entry {
+    /* ── SCANLINES ── */
+    body::before {
+      content: '';
       position: fixed;
       inset: 0;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 5000;
-      cursor: pointer;
-      transition: opacity 1.8s ease;
+      pointer-events: none;
+      z-index: 9997;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.06) 3px,
+        rgba(0,0,0,0.06) 4px
+      );
     }
 
-    #entry.fade-out { opacity: 0; pointer-events: none; }
+    .wrap {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
 
-    .entry-eyebrow {
-      font-size: 0.6rem;
-      letter-spacing: 0.55em;
+    .eyebrow {
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
       text-transform: uppercase;
       color: var(--dim);
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
 
-    .entry-title {
+    .name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(4rem, 14vw, 10rem);
+      font-size: clamp(3.5rem, 13vw, 8rem);
       font-weight: 900;
       font-style: italic;
       line-height: 0.88;
-      text-align: center;
       color: var(--white);
       animation: flicker 12s infinite;
+      margin-bottom: 2rem;
     }
 
-    .entry-sub {
-      margin-top: 1.5rem;
-      font-size: 0.6rem;
+    .status {
+      display: inline-block;
+      font-size: 0.58rem;
       letter-spacing: 0.45em;
       text-transform: uppercase;
-      color: var(--dim);
+      color: var(--red);
+      border: 1px solid var(--muted);
+      padding: 0.5rem 1.25rem;
+      margin-bottom: 3rem;
     }
 
-    #enter-btn {
-      margin-top: 5rem;
-      padding: 1rem 3.5rem;
-      border: 1px solid #2a2a2a;
-      background: transparent;
-      color: #555;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.4s;
-      outline: none;
+    .blink {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      margin-right: 0.6rem;
+      vertical-align: middle;
+      animation: blink 1.6s steps(1) infinite;
     }
 
-    #enter-btn:hover {
-      border-color: var(--white);
+    .lede {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.15rem, 3vw, 1.6rem);
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.5;
       color: var(--white);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .sub {
+      font-size: 0.78rem;
+      line-height: 2;
+      color: #888;
+      max-width: 440px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .sub em { color: var(--white); font-style: italic; }
+
+    .divider {
+      width: 1px;
+      height: 3rem;
+      background: var(--muted);
+      margin: 0 auto 3rem;
+    }
+
+    .footer-note {
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 2.2;
+    }
+
+    .footer-note a {
+      color: var(--dim);
+      text-decoration: none;
+      border-bottom: 1px solid var(--muted);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .footer-note a:hover {
+      color: var(--white);
+      border-color: var(--white);
     }
 
     @keyframes flicker {
@@ -112,909 +169,37 @@
       98%            { opacity: 1; }
     }
 
-    /* ══════════════════════════════════════════
-       LAYOUT
-    ══════════════════════════════════════════ */
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-
-    section {
-      padding: 7rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .label {
-      display: block;
-      font-size: 0.58rem;
-      letter-spacing: 0.55em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 3rem;
-    }
-
-    h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
-      font-style: italic;
-      line-height: 1.15;
-      margin-bottom: 2.5rem;
-    }
-
-    p {
-      font-size: 0.82rem;
-      line-height: 2.1;
-      color: #bbb;
-      margin-bottom: 1.6rem;
-    }
-
-    p:last-child { margin-bottom: 0; }
-
-    em { color: var(--white); font-style: italic; }
-
-    /* ══════════════════════════════════════════
-       HEADER
-    ══════════════════════════════════════════ */
-    #hero {
-      padding: 9rem 0 6rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-eyebrow {
-      font-size: 0.58rem;
-      letter-spacing: 0.5em;
-      text-transform: uppercase;
-      color: var(--dim);
-      margin-bottom: 2rem;
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      line-height: 0.88;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-name .line1 { font-size: clamp(2.8rem, 7vw, 5.5rem); }
-    .hero-name .line2 {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-style: italic;
-      color: var(--red);
-    }
-    .hero-name .line3 {
-      display: block;
-      margin-top: 1rem;
-      font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-      font-style: normal;
-      font-weight: 400;
-      letter-spacing: 0.5em;
-      color: var(--dim);
-      font-family: 'Space Mono', monospace;
-    }
-
-    .hero-roles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .role-tag {
-      font-size: 0.58rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--dim);
-      border: 1px solid var(--muted);
-      padding: 0.35rem 0.75rem;
-    }
-
-    .hero-tagline {
-      font-size: 0.78rem;
-      line-height: 1.9;
-      color: var(--dim);
-      max-width: 480px;
-      border-left: 1px solid var(--muted);
-      padding-left: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    /* ══════════════════════════════════════════
-       PHOTO GRID
-    ══════════════════════════════════════════ */
-    .ig-note {
-      font-size: 0.6rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      margin-bottom: 2rem;
-    }
-
-    .ig-note a {
-      color: var(--dim);
-      text-decoration: none;
-      border-bottom: 1px solid var(--muted);
-    }
-
-    /* Behold widget wrapper — forces dark background beneath tiles */
-    .behold-wrap {
-      width: 100%;
-      background: var(--black);
-      /* Override Behold's default white card background */
-      --behold-background-color: #000000;
-      --behold-border-radius: 0px;
-      --behold-gap: 3px;
-    }
-
-    /* Scanlines overlay on top of the whole gallery */
-    .behold-wrap {
-      position: relative;
-    }
-    .behold-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 10;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,0,0,0.07) 3px,
-        rgba(0,0,0,0.07) 4px
-      );
-    }
-
-    /* Setup state shown until a real feed-id is added */
-    .behold-setup {
-      padding: 4rem 2rem;
-      border: 1px solid #111;
-      text-align: center;
-      background: #050505;
-    }
-
-    .behold-setup p {
-      font-size: 0.68rem;
-      color: var(--muted);
-      line-height: 2;
-      margin: 0;
-    }
-
-    .behold-setup a {
-      color: var(--dim);
-      text-decoration: none;
-      border-bottom: 1px solid #333;
-    }
-
-    .behold-setup code {
-      color: #444;
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-    }
-
-    /* ══════════════════════════════════════════
-       CRITICAL RECORD
-    ══════════════════════════════════════════ */
-    .review-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: start;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid #0d0d0d;
-    }
-
-    .review-item:last-child { border-bottom: none; }
-
-    .review-subject {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
-      font-style: italic;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
-
-    .review-body {
-      font-size: 0.72rem;
-      line-height: 1.9;
-      color: #777;
-      margin: 0;
-    }
-
-    .review-score {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      font-weight: 900;
-      color: var(--red);
-      white-space: nowrap;
-      text-align: right;
-      line-height: 1;
-    }
-
-    .review-score .denom {
-      font-size: 0.9rem;
-      color: #333;
-      font-weight: 400;
-    }
-
-    .review-score .tbd {
-      font-size: 1.2rem;
-      color: #2a2a2a;
-    }
-
-    /* ══════════════════════════════════════════
-       TESTIMONIALS
-    ══════════════════════════════════════════ */
-    .testimonial {
-      padding: 3.5rem 0;
-      border-bottom: 1px solid #0d0d0d;
-    }
-
-    .testimonial:last-child { border-bottom: none; }
-
-    .t-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1rem, 2.4vw, 1.35rem);
-      font-style: italic;
-      line-height: 1.65;
-      color: var(--white);
-      margin-bottom: 2rem;
-    }
-
-    .t-quote::before { content: '\201C'; color: var(--red); }
-    .t-quote::after  { content: '\201D'; color: var(--red); }
-
-    .t-attr {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .t-line {
-      width: 1.8rem;
-      height: 1px;
-      background: var(--red);
-      flex-shrink: 0;
-    }
-
-    .t-name {
-      font-size: 0.58rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-
-    /* ══════════════════════════════════════════
-       MANIFESTO QUOTE BLOCK
-    ══════════════════════════════════════════ */
-    .manifesto {
-      padding: 5rem 0;
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-    }
-
-    .manifesto-text {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
-      font-style: italic;
-      font-weight: 700;
-      line-height: 1.5;
-      color: var(--white);
-      max-width: 640px;
-      margin: 0 auto 2rem;
-    }
-
-    .manifesto-attr {
-      font-size: 0.58rem;
-      letter-spacing: 0.4em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-
-    /* ══════════════════════════════════════════
-       FOOTER
-    ══════════════════════════════════════════ */
-    footer {
-      padding: 5rem 0;
-      text-align: center;
-    }
-
-    footer p {
-      font-size: 0.58rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.75rem;
-    }
-
-    footer a {
-      color: var(--dim);
-      text-decoration: none;
-      border-bottom: 1px solid var(--muted);
-      letter-spacing: 0.3em;
-      font-size: 0.58rem;
-      text-transform: uppercase;
-      transition: color 0.2s, border-color 0.2s;
-    }
-
-    footer a:hover {
-      color: var(--white);
-      border-color: var(--white);
-    }
-
-    .footer-divider {
-      width: 1px;
-      height: 3rem;
-      background: var(--muted);
-      margin: 2rem auto;
-    }
-
-    /* ══════════════════════════════════════════
-       AUDIO PLAYER
-    ══════════════════════════════════════════ */
-    #audio-ui {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      display: none;
-      align-items: center;
-      gap: 1rem;
-      background: rgba(0,0,0,0.92);
-      border: 1px solid #1a1a1a;
-      padding: 0.9rem 1.3rem;
-      z-index: 400;
-      backdrop-filter: blur(12px);
-      max-width: 240px;
-    }
-
-    #audio-toggle {
-      background: none;
-      border: 1px solid #2a2a2a;
-      color: var(--white);
-      width: 30px;
-      height: 30px;
-      flex-shrink: 0;
-      cursor: pointer;
-      font-size: 0.65rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s;
-      outline: none;
-    }
-
-    #audio-toggle:hover { border-color: #555; }
-
-    .audio-info { min-width: 0; }
-
-    #track-name {
-      display: block;
-      font-size: 0.6rem;
-      color: var(--white);
-      letter-spacing: 0.05em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    #track-artist {
-      display: block;
-      font-size: 0.55rem;
-      color: var(--dim);
-      letter-spacing: 0.05em;
-      margin-top: 0.2rem;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .audio-eq {
-      display: flex;
-      align-items: flex-end;
-      gap: 2px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .eq-bar {
-      width: 2px;
-      background: var(--red);
-      animation: eq 0.8s ease-in-out infinite alternate;
-    }
-
-    .eq-bar:nth-child(1) { height: 40%; animation-delay: 0s;    animation-duration: 0.7s; }
-    .eq-bar:nth-child(2) { height: 80%; animation-delay: 0.15s; animation-duration: 0.9s; }
-    .eq-bar:nth-child(3) { height: 60%; animation-delay: 0.3s;  animation-duration: 0.6s; }
-    .eq-bar:nth-child(4) { height: 100%;animation-delay: 0.1s;  animation-duration: 1.1s; }
-
-    .eq-bar.paused { animation: none; height: 2px !important; }
-
-    @keyframes eq {
-      from { transform: scaleY(0.3); }
-      to   { transform: scaleY(1); }
-    }
-
-    /* ══════════════════════════════════════════
-       HIDDEN YOUTUBE
-    ══════════════════════════════════════════ */
-    #yt-container {
-      position: fixed;
-      top: -9999px;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
-    @media (max-width: 600px) {
-      .photo-grid { grid-template-columns: repeat(2, 1fr); }
-      .review-item { grid-template-columns: 1fr; }
-      .review-score { text-align: left; font-size: 1.8rem; }
-      #audio-ui { bottom: 1rem; right: 1rem; left: 1rem; max-width: none; }
+    @keyframes blink {
+      0%, 50%   { opacity: 1; }
+      51%, 100% { opacity: 0.15; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     ENTRY SCREEN
-═══════════════════════════════════════ -->
-<div id="entry">
-  <p class="entry-eyebrow">Miami, FL &nbsp;·&nbsp; Est. Whenever He Decided He Had Opinions</p>
-  <h1 class="entry-title">8ry8ry</h1>
-  <p class="entry-sub">presents himself to you, reluctantly</p>
-  <button id="enter-btn" onclick="enterSite()">↓ &nbsp; enter the scene &nbsp; ↓</button>
-</div>
+  <div class="wrap">
+    <p class="eyebrow">Miami, FL &nbsp;·&nbsp; Photography &nbsp;·&nbsp; Techno &nbsp;·&nbsp; Criticism</p>
 
-<!-- ═══════════════════════════════════════
-     HIDDEN YOUTUBE PLAYERS
-═══════════════════════════════════════ -->
-<div id="yt-container">
-  <div id="yt1"></div>
-</div>
+    <h1 class="name">8ry8ry</h1>
 
-<!-- ═══════════════════════════════════════
-     AUDIO PLAYER UI
-═══════════════════════════════════════ -->
-<div id="audio-ui">
-  <button id="audio-toggle" onclick="toggleAudio()" title="play/pause">▐▐</button>
-  <div class="audio-info">
-    <span id="track-name">Digital Bath</span>
-    <span id="track-artist">Deftones</span>
+    <p class="status"><span class="blink"></span>In Development</p>
+
+    <p class="lede">
+      "The vision is there. The execution is getting closer. Very close. Closer than last time. I'm almost ready. The room just has to be right."
+    </p>
+
+    <p class="sub">
+      Something is being prepared. It is <em>not</em> ready. It will be ready when the light is finally right, and not one minute before. He will let you know. He always lets you know.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="footer-note">
+      Coming Soon<br>
+      <a href="https://www.instagram.com/8ry8ry/" target="_blank" rel="noopener">@8ry8ry on Instagram</a><br>
+      <span style="color:#1a1a1a;letter-spacing:0.2em">Miami, FL · All years</span>
+    </p>
   </div>
-  <div class="audio-eq" id="eq">
-    <div class="eq-bar"></div>
-    <div class="eq-bar"></div>
-    <div class="eq-bar"></div>
-    <div class="eq-bar"></div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════
-     MAIN CONTENT
-═══════════════════════════════════════ -->
-<main>
-
-  <!-- HERO -->
-  <div id="hero">
-    <div class="container">
-      <p class="hero-eyebrow">Miami, FL &nbsp;·&nbsp; Photography &nbsp;·&nbsp; Techno &nbsp;·&nbsp; Management &nbsp;·&nbsp; Criticism &nbsp;·&nbsp; Unverified Grievances</p>
-      <div class="hero-name">
-        <span class="line1">Bryan Deimer</span><br>
-        <span class="line2">Muñoz</span>
-        <span class="line3">aka 8ry8ry &nbsp;·&nbsp; Miami's Most Important Man &nbsp;·&nbsp; 2,428 Instagram Followers Who Know What They Did</span>
-      </div>
-      <div class="hero-roles">
-        <span class="role-tag">Photographer</span>
-        <span class="role-tag">Aspiring Techno DJ</span>
-        <span class="role-tag">Manager (of Things)</span>
-        <span class="role-tag">Music Critic</span>
-        <span class="role-tag">Film Noir Enthusiast</span>
-        <span class="role-tag">Documentarian</span>
-      </div>
-      <p class="hero-tagline">
-        Has opinions. Shares them unsolicited. Cannot be reasoned with.<br>
-        Will stand with arms crossed through your entire set.
-      </p>
-    </div>
-  </div>
-
-  <!-- BIO -->
-  <section id="bio">
-    <div class="container">
-      <span class="label">— Biography</span>
-      <h2>The Man. The Myth.<br>The One Who Walked Out Early.</h2>
-
-      <p>Bryan Deimer Muñoz — known to the eleven people who genuinely respect him as <em>8ry8ry</em> — is Miami's self-appointed last line of defense against mediocre music, bad light, lazy edits, and DJ sets that "lack tension." A photographer by training, a techno DJ by ambition, a manager of things still to be determined, and a music critic by way of simply refusing to stop talking.</p>
-
-      <p>Picture George Costanza. Now give George Costanza a 50mm prime lens, a Moog synthesizer, a subscription to The Criterion Collection, and enough knowledge of Sopranos lore that he describes every personal conflict as "a sit-down." That is Bryan. He has strong opinions about your favorite DJ's kick drum. He has already explained them to you. You just weren't listening correctly.</p>
-
-      <p>Born and forged in Miami's sweltering nightlife underground, Bryan moves through the city like a slow-burning film noir protagonist who is perpetually three minutes late but arrives looking like he was always meant to be there. He has photographed sunsets and then, privately, offered the sun a note about its framing choices. He once told a headlining DJ — to their face, at the merch table, at volume — that their set was <em>"competent."</em> The DJ has not recovered. Neither has the merch table.</p>
-
-      <p>His relationship with music criticism is best described as a calling. Anthony Fantano reviews albums; Bryan reviews <em>vibes, arcs, decisions.</em> He does not give scores out of ten in the traditional sense — his scale is emotional, contextual, and highly personal, which is to say it is entirely made up on the spot and delivered with the authority of someone who has seen the full run of The Wire and considers it relevant to house music.</p>
-
-      <p>As a photographer, he captures Miami with clinical precision and a noir eye that sees everything as either deeply cinematic or deeply insufficient. His subjects: light, shadow, the human condition, the inside of Bardot, a specific corner of Wynwood at 2am, and whatever was in front of him when the light was "finally right." Editing style described by peers as <em>"Kubrick if Kubrick had Lightroom and a grudge."</em></p>
-
-      <p>His techno DJ project — currently in what insiders call <em>"the visionary phase"</em> and what Bryan calls "in development" — is expected to debut at a venue befitting his taste and budget, which narrows it considerably. Early previews have been described by those present as "interesting," "dark," "where is this going," and "Bryan it is 2:30am and I have work tomorrow." He has taken all of this as encouragement.</p>
-
-      <p>He also manages. What, exactly, is fluid. But he manages it with the conviction of a man who has watched the Pilot of The Sopranos thirty-seven times and considers it load-bearing curriculum.</p>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section id="gallery">
-    <div class="container">
-      <span class="label">— Visual Evidence</span>
-      <h2>The Archive.</h2>
-      <p class="ig-note">
-        <a href="https://www.instagram.com/8ry8ry/" target="_blank" rel="noopener">@8ry8ry</a> on Instagram.
-        All photographs taken with intention. Some retaken because the first one "missed."
-      </p>
-    </div>
-
-    <!-- Behold.so Instagram feed widget — full bleed, no container padding -->
-    <div class="behold-wrap">
-
-      <!-- ─────────────────────────────────────────────────────────────────
-           TO ACTIVATE: Bryan goes to https://behold.so, creates a free
-           account, connects his @8ry8ry Instagram, and copies his Feed ID.
-           Then replace YOUR_FEED_ID below with the real ID (looks like: AbCd1234).
-           In the Behold dashboard set: background = #000, gap = 3px, columns = 3.
-           ───────────────────────────────────────────────────────────────── -->
-      <behold-widget feed-id="YOUR_FEED_ID"></behold-widget>
-
-      <!-- Shown only until a real feed-id is set -->
-      <div class="behold-setup" id="behold-setup">
-        <p>
-          Instagram gallery coming soon.<br>
-          <a href="https://behold.so" target="_blank" rel="noopener">behold.so</a>
-          &nbsp;→ connect <strong style="color:#555">@8ry8ry</strong>
-          → copy Feed ID → replace <code>YOUR_FEED_ID</code> in the HTML.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- MANIFESTO PULL QUOTE -->
-  <div class="manifesto">
-    <div class="container">
-      <p class="manifesto-text">
-        "The breakdown happened twice. Twice. I counted. I have it written down. I am telling people."
-      </p>
-      <p class="manifesto-attr">— 8ry8ry, III Points 2024, 1:47am, unsolicited</p>
-    </div>
-  </div>
-
-  <!-- CRITICAL RECORD -->
-  <section id="reviews">
-    <div class="container">
-      <span class="label">— Critical Record</span>
-      <h2>Selected Reviews.<br><span style="font-size:0.55em;color:var(--dim);font-family:'Space Mono',monospace;font-style:normal;font-weight:400;letter-spacing:0.15em">All scores final. No appeals. He has already explained why.</span></h2>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">Undisclosed Wynwood DJ, III Points Main Stage</div>
-          <p class="review-body">"Played the same breakdown twice. Like we wouldn't notice. Like 800 people with ears wouldn't notice. I noticed. I wrote it down. I have been telling everyone about it. I will continue telling people about it. This is not something I will let go of."</p>
-        </div>
-        <div class="review-score">3.4<span class="denom">/10</span></div>
-      </div>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">The Concept of Sunrise Over Biscayne Bay</div>
-          <p class="review-body">"Visually compelling, structurally predictable. The gradient is derivative of every sunrise that has ever occurred. Pink into orange — we've seen this set. Where's the tension? Where's the risk? Come back when you have something new to say about light. Until then: mid."</p>
-        </div>
-        <div class="review-score">6.1<span class="denom">/10</span></div>
-      </div>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">A Croqueta at Versailles, Miami, FL</div>
-          <p class="review-body">"Peak Miami. Technically flawless. I've had it forty times. But everyone's had it. And if everyone knows about something, what is even the point of me knowing about it? Still: the best. Reluctantly. Provisionally. Don't tell anyone I said that."</p>
-        </div>
-        <div class="review-score">9.2<span class="denom">/10</span></div>
-      </div>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">Heat (1995, dir. Michael Mann)</div>
-          <p class="review-body">"Perfect. Ten. That's it. The diner scene is the greatest scene in the history of cinema and I will have this conversation with anyone, anywhere, any length. The coffee shop scene alone makes it load-bearing for Western civilization. Do not speak to me about this film unless you are prepared to be there a while."</p>
-        </div>
-        <div class="review-score">10<span class="denom">/10</span></div>
-      </div>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">A Friend's DJ Set (Heard Through A Phone Memo, 2am)</div>
-          <p class="review-body">"I can hear the vision. It is close. The kick is slightly philosophically incorrect — not wrong technically, but wrong in spirit. The mix at 34 minutes needed to breathe. The outro is good actually, which worries me, because when the outro is the best part I don't know what that means and I've been thinking about it for three days."</p>
-        </div>
-        <div class="review-score">7.3<span class="denom">/10</span></div>
-      </div>
-
-      <div class="review-item">
-        <div>
-          <div class="review-subject">His Own Forthcoming DJ Project</div>
-          <p class="review-body">"The vision is there. The execution is getting closer. Very close. Closer than last time. The sound design is where it needs to be. The arc needs work. I'm almost ready. The room just has to be right. The time has to be right. I'll let you know."</p>
-        </div>
-        <div class="review-score"><span class="tbd">TBD</span></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="container">
-      <span class="label">— Peer Assessment</span>
-      <h2>What Miami Says.</h2>
-      <p style="color:var(--muted);font-size:0.7rem;margin-bottom:3.5rem">
-        Unsolicited testimonials from the local music community.
-        All quotes are spiritually accurate. Some are legally deniable.
-      </p>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          Bryan came to my set at III Points and spent the entire time standing with his arms crossed, nodding slowly like a disappointed father watching his son attempt a free throw. When it was over he came up to me, looked me dead in the eye, and said "not bad." I've had those two words tattooed on my left forearm. It is the highest praise I have ever received from a human being at 3am.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">David Sinopoli &nbsp;·&nbsp; DJ / Producer &nbsp;·&nbsp; Miami / Berlin &nbsp;·&nbsp; Fabric Resident &nbsp;·&nbsp; Innervisions</div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          I sent Bryan a promo mix. He responded three days later with a four-hundred-and-twenty-word voice note. Not a text. A voice note. He used the word "pedestrian" four separate times. He also said, and I quote, that my kick drum was "philosophically incorrect." Not technically wrong. Philosophically. I still do not know what that means. I think about it every single time I open a DAW. He has fundamentally altered how I approach my work and I'm not sure if that's a good thing.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">Danny Daze &nbsp;·&nbsp; DJ / Producer &nbsp;·&nbsp; Miami &nbsp;·&nbsp; Clone Records / Omnidisc</div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          He photographed my event. The photos were genuinely incredible — cinematic, moody, perfect. Afterwards he spent twenty minutes telling me the crowd had "no sense of release." I said Bryan, it's a techno night, that IS the vibe. He said "I know, and I'm concerned." I didn't know what to say. I still don't. The photos are framed in my office.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">Anonymous Miami Promoter &nbsp;·&nbsp; Wynwood &nbsp;·&nbsp; Still Processing &nbsp;·&nbsp; Photos Are Good Though</div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          Bryan told me he liked my new track. Just "I liked it." No qualifications. No footnotes. No 'but the hi-hats.' Just: I liked it. I haven't slept properly since. Something must be wrong with it that he can't even find the words for. I've pulled it from release twice. My therapist says this is about Bryan. My therapist is right.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">Miami Producer, Name Withheld &nbsp;·&nbsp; Currently In Studio &nbsp;·&nbsp; Reconsidering Everything &nbsp;·&nbsp; All Because Of Two Words</div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          He asked me — completely seriously, at a Sunday afternoon beach bar gig — if I had considered the "narrative arc" of my set. I was playing to twelve people at 2pm and someone had just spilled a mojito on the CDJ. I said Bryan, this is a beach bar on a Sunday. He said "all the more reason." He was still there when I finished. He said "better." I felt something.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">DJ TBD &nbsp;·&nbsp; Miami Beach &nbsp;·&nbsp; Grateful, Probably &nbsp;·&nbsp; Would Not Invite Him Back &nbsp;·&nbsp; Would Invite Him Back</div>
-        </div>
-      </div>
-
-      <div class="testimonial">
-        <p class="t-quote">
-          Bryan is the only person I know who can watch the opening scene of Touch of Evil and immediately start talking about a DJ set he was at in 2022. And somehow it makes sense. I don't know how. He doesn't explain it. It just lands. He's either a genius or the most elaborate bit in Miami nightlife history. Could be both. Probably both.
-        </p>
-        <div class="t-attr">
-          <div class="t-line"></div>
-          <div class="t-name">A Mutual &nbsp;·&nbsp; Miami &nbsp;·&nbsp; Has Known Bryan Too Long &nbsp;·&nbsp; No Regrets</div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-divider"></div>
-      <p>8ry8ry</p>
-      <p>Photography &nbsp;·&nbsp; Techno &nbsp;·&nbsp; Management &nbsp;·&nbsp; Opinions</p>
-      <p style="margin-top:0.5rem">In that order. Non-negotiable.</p>
-      <p style="margin-top:2rem">
-        <a href="https://www.instagram.com/8ry8ry/" target="_blank" rel="noopener">@8ry8ry on Instagram</a>
-      </p>
-      <p style="margin-top:2.5rem;color:#1a1a1a">
-        Built with the same conviction with which Bryan reviews other people's work.
-        Miami, FL. All years.
-      </p>
-    </div>
-  </footer>
-
-</main>
-
-<!-- ═══════════════════════════════════════
-     YOUTUBE IFRAME API + AUDIO LOGIC
-═══════════════════════════════════════ -->
-<script>
-  // ─── Track list ─────────────────────────────────────────────────────────────
-  // YouTube video IDs. To update: find the video on YouTube, copy the ID from
-  // the URL (youtube.com/watch?v=ID_HERE) and paste it below.
-  const TRACKS = [
-    { ytId: 'O_IIAYZL1R4', name: 'Digital Bath',                 artist: 'Deftones'     },
-    { ytId: 'VXxDqyBC29w', name: 'Midtown 120 Blues',            artist: 'DJ Sprinkles' },
-    { ytId: '9tmPBuSpmfA', name: 'Digital Bath (Alt)',            artist: 'Deftones'     },
-    { ytId: 'YazFgKWd5fg', name: 'Midtown 120 Blues (Full)',      artist: 'DJ Sprinkles' },
-  ];
-
-  const VOLUME     = 22;   // background volume: 0–100
-  const FADE_MS    = 1800; // fade duration in ms
-
-  // ─── State ──────────────────────────────────────────────────────────────────
-  let ytPlayer      = null;
-  let apiReady      = false;
-  let isPlaying     = false;
-  let trackIdx      = 0;
-  let fadeInterval  = null;
-
-  // ─── Load YouTube IFrame API ─────────────────────────────────────────────────
-  (function () {
-    const s = document.createElement('script');
-    s.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(s);
-  })();
-
-  window.onYouTubeIframeAPIReady = function () {
-    apiReady = true;
-    ytPlayer = new YT.Player('yt1', {
-      height: '1', width: '1',
-      videoId: TRACKS[0].ytId,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        fs: 0,
-        rel: 0,
-        modestbranding: 1,
-      },
-      events: {
-        onStateChange: function (e) {
-          // When a track ends, crossfade to next
-          if (e.data === YT.PlayerState.ENDED) nextTrack();
-        },
-        onError: function () {
-          // If a video errors (embedding disabled etc.), skip it
-          setTimeout(nextTrack, 1000);
-        }
-      }
-    });
-  };
-
-  // ─── Entry screen ────────────────────────────────────────────────────────────
-  function enterSite() {
-    const el = document.getElementById('entry');
-    el.classList.add('fade-out');
-    setTimeout(() => {
-      el.style.display = 'none';
-      document.getElementById('audio-ui').style.display = 'flex';
-      updateTrackUI();
-      startPlayback();
-    }, 1800);
-  }
-
-  function startPlayback() {
-    if (!apiReady || !ytPlayer || typeof ytPlayer.playVideo !== 'function') {
-      setTimeout(startPlayback, 400);
-      return;
-    }
-    ytPlayer.setVolume(0);
-    ytPlayer.playVideo();
-    fadeIn();
-    isPlaying = true;
-    setEqState(true);
-    document.getElementById('audio-toggle').innerHTML = '▐▐';
-  }
-
-  // ─── Track switching ─────────────────────────────────────────────────────────
-  function nextTrack() {
-    // Pick next (shuffle avoids repeating same back-to-back)
-    let next;
-    do { next = Math.floor(Math.random() * TRACKS.length); }
-    while (next === trackIdx && TRACKS.length > 1);
-    trackIdx = next;
-
-    fadeOut(() => {
-      ytPlayer.loadVideoById(TRACKS[trackIdx].ytId);
-      updateTrackUI();
-      ytPlayer.setVolume(0);
-      ytPlayer.playVideo();
-      setTimeout(fadeIn, 600);
-    });
-  }
-
-  // ─── Fade helpers ─────────────────────────────────────────────────────────────
-  function fadeIn() {
-    clearInterval(fadeInterval);
-    const steps = 40;
-    const delta = VOLUME / steps;
-    const delay = FADE_MS / steps;
-    let v = 0;
-    fadeInterval = setInterval(() => {
-      v = Math.min(v + delta, VOLUME);
-      ytPlayer.setVolume(v);
-      if (v >= VOLUME) clearInterval(fadeInterval);
-    }, delay);
-  }
-
-  function fadeOut(cb) {
-    clearInterval(fadeInterval);
-    const steps = 30;
-    const delay = (FADE_MS * 0.6) / steps;
-    let v = VOLUME;
-    const delta = VOLUME / steps;
-    fadeInterval = setInterval(() => {
-      v = Math.max(v - delta, 0);
-      ytPlayer.setVolume(v);
-      if (v <= 0) {
-        clearInterval(fadeInterval);
-        if (cb) cb();
-      }
-    }, delay);
-  }
-
-  // ─── Play / pause toggle ──────────────────────────────────────────────────────
-  function toggleAudio() {
-    if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
-    if (isPlaying) {
-      fadeOut(() => ytPlayer.pauseVideo());
-      isPlaying = false;
-      setEqState(false);
-      document.getElementById('audio-toggle').innerHTML = '▶';
-    } else {
-      ytPlayer.playVideo();
-      fadeIn();
-      isPlaying = true;
-      setEqState(true);
-      document.getElementById('audio-toggle').innerHTML = '▐▐';
-    }
-  }
-
-  // ─── UI helpers ───────────────────────────────────────────────────────────────
-  function updateTrackUI() {
-    const t = TRACKS[trackIdx];
-    document.getElementById('track-name').textContent   = t.name;
-    document.getElementById('track-artist').textContent = t.artist;
-  }
-
-  function setEqState(playing) {
-    document.querySelectorAll('.eq-bar').forEach(b =>
-      b.classList.toggle('paused', !playing)
-    );
-  }
-</script>
-
-<!-- Behold.so Instagram feed -->
-<script type="module" src="https://w.behold.so/widget.js"></script>
-<script>
-  // Hide the setup placeholder once Behold renders real posts
-  document.addEventListener('DOMContentLoaded', function () {
-    const widget = document.querySelector('behold-widget');
-    const setup  = document.getElementById('behold-setup');
-    if (!widget || !setup) return;
-
-    // If a real feed-id is set, hide the placeholder after a short grace period
-    if (widget.getAttribute('feed-id') !== 'YOUR_FEED_ID') {
-      setup.style.display = 'none';
-    }
-  });
-</script>
 
 </body>
 </html>
